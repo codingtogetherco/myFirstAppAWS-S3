@@ -8,12 +8,11 @@ import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.util.IOUtils;
-import com.amazonaws.util.StringUtils;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.aws.example.awsdemo.domain.Object;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
@@ -24,10 +23,15 @@ import java.util.stream.Collectors;
 @Repository
 public class S3RepositoryImpl implements S3Repository{
 
-    @Autowired
     private AmazonS3 s3Client;
 
+    @Autowired
+    public S3RepositoryImpl(AmazonS3 s3Client) {
+        this.s3Client = s3Client;
+    }
+
     private static final Logger log = LoggerFactory.getLogger(S3RepositoryImpl.class);
+
 
     @Override
     public List<Object> listObjectsInBucket(String bucket) {

@@ -23,9 +23,12 @@ public class AwsServiceImpl implements AwsService{
 
     private static final Logger log = LoggerFactory.getLogger(AwsServiceImpl.class);
 
-    @Autowired
     private S3Repository s3Repository;
 
+    @Autowired
+    public AwsServiceImpl(S3Repository s3Repository) {
+        this.s3Repository = s3Repository;
+    }
 
     public List<Object> getS3Files(String bucket) {
         return s3Repository.listObjectsInBucket(bucket);

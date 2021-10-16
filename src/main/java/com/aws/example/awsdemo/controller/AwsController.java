@@ -22,9 +22,12 @@ import java.util.List;
 @RequestMapping(value = "/s3")
 public class AwsController {
 
-    @Autowired
-    AwsService awsService;
+    private AwsService awsService;
 
+    @Autowired
+    public AwsController(AwsService awsService) {
+        this.awsService = awsService;
+    }
 
     @GetMapping("/getS3FileContent")
     public ResponseEntity<String> getS3FileContent(@RequestParam(value = "bucketName") String bucketName, @RequestParam(value = "fileName") String fileName) throws IOException {
